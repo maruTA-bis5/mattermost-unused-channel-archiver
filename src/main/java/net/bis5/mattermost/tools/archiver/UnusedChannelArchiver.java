@@ -101,7 +101,7 @@ class UnusedChannelArchiver {
       Collection<Channel> channels) {
     ZonedDateTime oneYearAgo = ZonedDateTime.now().minusYears(1);
     List<Channel> unusedChannels = channels.stream() //
-        .peek(System.out::println) // XXX debug
+        // .peek(System.out::println) // XXX debug
         // 作ってから1年たっていないチャンネルはアーカイブ対象外にする
         .filter(ch -> ch.getCreateAt() < oneYearAgo.toInstant().toEpochMilli()) //
         .filter(ch -> !hasUserPostSince(client, ch, oneYearAgo)).collect(Collectors.toList());
@@ -117,7 +117,7 @@ class UnusedChannelArchiver {
 
     return postList.getPosts().values().stream() //
         .filter(p -> p.getType().equals(PostType.DEFAULT)) //
-        .peek(p -> System.out.printf("Found post in ~%s: %s%n", ch.getName(), p)) //
+        // .peek(p -> System.out.printf("Found post in ~%s: %s%n", ch.getName(), p)) //
         .findAny() //
         .isPresent();
   }
